@@ -22,6 +22,7 @@ const keyToVw = [
   'margin-right',
   'left',
   'right',
+  'column-gap',
 ];
 const keyToVh = [
   'height',
@@ -32,7 +33,9 @@ const keyToVh = [
   'top',
   'bottom',
   'leading',
+  'row-gap',
 ];
+const keyToBoth = ['padding', 'margin', 'gap'];
 
 export const presetPxToViewport = definePreset(
   (options: PxToViewportOptions = {}) => {
@@ -59,7 +62,7 @@ export const presetPxToViewport = definePreset(
               (_, p1) => `${px2vh(Number(p1), designHeight)}`,
             );
           }
-          if (['padding', 'margin'].includes(key)) {
+          if (keyToBoth.includes(key)) {
             i[1] = value.replace(
               pxRE,
               (_, p1) =>
