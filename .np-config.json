@@ -1,3 +1,4 @@
 {
-  "message": "release: v%s"
+  "message": "release: v%s",
+  "tests": false
 }
