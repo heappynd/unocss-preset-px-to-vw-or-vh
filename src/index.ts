@@ -5,6 +5,11 @@ const pxRE = /(-?[.\d]+)px/g;
 export interface PxToViewportOptions {
   designWidth?: number;
   designHeight?: number;
+  keyToVw?: string[];
+  keyToVh?: string[];
+  keyToBoth?: string[];
+  // add or replace key
+  replaceKey?: boolean;
 }
 
 const px2vw = (px: number, designWidth: number) => {
@@ -14,7 +19,7 @@ const px2vh = (px: number, designHeight: number) => {
   return (px * 100.0) / designHeight + 'vh';
 };
 
-const keyToVw = [
+const defaultKeyToVw = [
   'width',
   'padding-left',
   'padding-right',
@@ -24,7 +29,7 @@ const keyToVw = [
   'right',
   'column-gap',
 ];
-const keyToVh = [
+const defaultKeyToVh = [
   'height',
   'padding-top',
   'padding-bottom',
@@ -35,11 +40,27 @@ const keyToVh = [
   'leading',
   'row-gap',
 ];
-const keyToBoth = ['padding', 'margin', 'gap'];
+const defaultKeyToBoth = ['padding', 'margin', 'gap'];
 
 export const presetPxToViewport = definePreset(
   (options: PxToViewportOptions = {}) => {
     const { designWidth = 1920, designHeight = 1080 } = options;
+
+    let keyToVw = [];
+    let keyToVh = [];
+    let keyToBoth = [];
+
+    const replaceKey = options.replaceKey || false;
+
+    if (replaceKey) {
+      keyToVw = options.keyToVw || defaultKeyToVw;
+      keyToVh = options.keyToVh || defaultKeyToVh;
+      keyToBoth = options.keyToBoth || defaultKeyToBoth;
+    } else {
+      keyToVw = [...defaultKeyToVw, ...(options.keyToVw || [])];
+      keyToVh = [...defaultKeyToVh, ...(options.keyToVh || [])];
+      keyToBoth = [...defaultKeyToBoth, ...(options.keyToBoth || [])];
+    }
 
     return {
       name: 'unocss-preset-px-to-viewport',

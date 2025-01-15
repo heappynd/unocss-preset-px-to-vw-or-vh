@@ -70,6 +70,10 @@ export default defineConfig({
 
 - `designWidth`: The design reference width (default: 1920)
 - `designHeight`: The design reference height (default: 1080)
+- `keyToVw`: The key to convert to viewport width (default: ['width', 'padding-left', 'padding-right', 'margin-left', 'margin-right', 'left', 'right'])
+- `keyToVh`: The key to convert to viewport height (default: ['height', 'padding-top', 'padding-bottom', 'margin-top', 'margin-bottom', 'top', 'bottom'])
+- `keyToBoth`: The key to convert to both viewport width and height (default: ['padding', 'margin', 'gap'])
+- `replaceKey`: Whether to replace the original key with the converted key (default: false)
 
 ## How It Works
 
