@@ -1,7 +1,5 @@
 import { definePreset } from 'unocss';
 
-const pxRE = /(-?[.\d]+)px/g;
-
 export interface PxToViewportOptions {
   designWidth?: number;
   designHeight?: number;
@@ -10,6 +8,7 @@ export interface PxToViewportOptions {
   keyToBoth?: string[];
   // add or replace key
   replaceKey?: boolean;
+  unit?: string;
 }
 
 const px2vw = (px: number, designWidth: number) => {
@@ -44,6 +43,8 @@ const defaultKeyToBoth = ['padding', 'margin', 'gap'];
 
 export const presetPxToViewport = definePreset(
   (options: PxToViewportOptions = {}) => {
+    // const pxRE = /(-?[.\d]+)px/g;
+    const pxRE = new RegExp(`(-?[.\\d]+)${options.unit || 'px'}`, 'g');
     const { designWidth = 1920, designHeight = 1080 } = options;
 
     let keyToVw = [];
