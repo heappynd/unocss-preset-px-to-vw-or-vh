@@ -74,6 +74,7 @@ export default defineConfig({
 - `keyToVh`: The key to convert to viewport height (default: ['height', 'padding-top', 'padding-bottom', 'margin-top', 'margin-bottom', 'top', 'bottom'])
 - `keyToBoth`: The key to convert to both viewport width and height (default: ['padding', 'margin', 'gap'])
 - `replaceKey`: Whether to replace the original key with the converted key (default: false)
+- `unit`: The unit to convert (default: 'px')
 
 ## How It Works
 
