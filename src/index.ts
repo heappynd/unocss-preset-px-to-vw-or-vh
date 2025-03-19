@@ -42,7 +42,12 @@ const defaultKeyToVh = [
 ];
 const defaultKeyToBoth = ['padding', 'margin', 'gap'];
 
-export const presetPxToViewport = definePreset(
+// 兼容低版本 < v0.51.1
+const definePresetCompatible = definePreset || function (preset: unknown) {
+  return preset
+};
+
+export const presetPxToViewport = definePresetCompatible(
   (options: PxToViewportOptions = {}) => {
     const { designWidth = 1920, designHeight = 1080 } = options;
 
