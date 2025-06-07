@@ -12,10 +12,10 @@ export interface PxToViewportOptions {
 }
 
 const px2vw = (px: number, designWidth: number) => {
-  return (px * 100.0) / designWidth + 'vw'
+  return `${(px * 100) / designWidth}vw`
 }
 const px2vh = (px: number, designHeight: number) => {
-  return (px * 100.0) / designHeight + 'vh'
+  return `${(px * 100) / designHeight}vh`
 }
 
 const defaultKeyToVw = [
@@ -73,15 +73,13 @@ export const presetPxToViewport = definePreset(
           const value = i[1]
           if (typeof value !== 'string') return
           if (keyToVw.includes(key)) {
-            i[1] = value.replace(
-              pxRE,
-              (_, p1) => `${px2vw(Number(p1), designWidth)}`,
+            i[1] = value.replace(pxRE, (_, p1) =>
+              String(px2vw(Number(p1), designWidth)),
             )
           }
           if (keyToVh.includes(key)) {
-            i[1] = value.replace(
-              pxRE,
-              (_, p1) => `${px2vh(Number(p1), designHeight)}`,
+            i[1] = value.replace(pxRE, (_, p1) =>
+              String(px2vh(Number(p1), designHeight)),
             )
           }
           if (keyToBoth.includes(key)) {
