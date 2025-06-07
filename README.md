@@ -28,33 +28,33 @@ npm install unocss-preset-px-to-vw-or-vh
 
 ```js
 // uno.config.ts
-import { defineConfig } from 'unocss';
-import { presetPxToViewport } from 'unocss-preset-px-to-vw-or-vh';
+import { defineConfig } from 'unocss'
+import { presetPxToViewport } from 'unocss-preset-px-to-vw-or-vh'
 
 export default defineConfig({
   presets: [
     // ...其他预设
     presetPxToViewport({
-      designWidth: 1920,  // 设计稿宽度
+      designWidth: 1920, // 设计稿宽度
       designHeight: 1080, // 设计稿高度
     }),
   ],
-});
+})
 ```
 
 ### 高级配置
 
 ```js
 presetPxToViewport({
-  designWidth: 1920,  // 设计稿宽度，默认为 1920
+  designWidth: 1920, // 设计稿宽度，默认为 1920
   designHeight: 1080, // 设计稿高度，默认为 1080
-  unit: 'px',         // 要转换的单位，默认为 'px'
-  
+  unit: 'px', // 要转换的单位，默认为 'px'
+
   // 自定义转换属性列表
-  keyToVw: ['width', 'min-width', 'max-width'],  // 转换为 vw 的属性
+  keyToVw: ['width', 'min-width', 'max-width'], // 转换为 vw 的属性
   keyToVh: ['height', 'min-height', 'max-height'], // 转换为 vh 的属性
   keyToBoth: ['padding', 'margin'], // 同时转换为 vh 和 vw 的属性
-  
+
   // 是否替换默认属性列表，默认为 false (即添加到默认列表)
   replaceKey: true,
 })
@@ -70,12 +70,14 @@ presetPxToViewport({
 
 <!-- 转换后的效果 (假设 designWidth=1920, designHeight=1080) -->
 <!-- 相当于使用以下 CSS -->
-<div style="
+<div
+  style="
   width: 10.42vw;
   height: 9.26vh;
   padding: 1.85vh 1.04vw;
   margin: 0.93vh 0.52vw;
-"></div>
+"
+></div>
 ```
 
 ### 示例 2: 在组件中使用
@@ -87,7 +89,7 @@ presetPxToViewport({
     <div class="w-240px h-full left-30px top-20px">
       <!-- 转换为 width: 12.5vw; height: 100%; left: 1.56vw; top: 1.85vh; -->
     </div>
-    
+
     <!-- 主内容区 -->
     <div class="ml-280px mt-20px p-15px gap-20px">
       <!-- 转换为 margin-left: 14.58vw; margin-top: 1.85vh; padding: 1.39vh 0.78vw; gap: 1.85vh 1.04vw; -->
@@ -100,18 +102,18 @@ presetPxToViewport({
 
 ```js
 // uno.config.ts
-import { defineConfig } from 'unocss';
-import { presetPxToViewport } from 'unocss-preset-px-to-vw-or-vh';
+import { defineConfig } from 'unocss'
+import { presetPxToViewport } from 'unocss-preset-px-to-vw-or-vh'
 
 export default defineConfig({
   presets: [
     presetPxToViewport({
-      designWidth: 750,  // 移动端设计稿宽度
+      designWidth: 750, // 移动端设计稿宽度
       designHeight: 1334, // 移动端设计稿高度
-      unit: 'rpx',  // 将 rpx 单位转换为 vw/vh
+      unit: 'rpx', // 将 rpx 单位转换为 vw/vh
     }),
   ],
-});
+})
 ```
 
 在组件中使用：
@@ -146,6 +148,7 @@ presetPxToViewport({
 ## 默认转换属性
 
 ### 转换为 vw 的属性 (水平方向)
+
 - width
 - padding-left
 - padding-right
@@ -156,6 +159,7 @@ presetPxToViewport({
 - column-gap
 
 ### 转换为 vh 的属性 (垂直方向)
+
 - height
 - padding-top
 - padding-bottom
@@ -167,6 +171,7 @@ presetPxToViewport({
 - row-gap
 
 ### 同时转换为 vh 和 vw 的属性
+
 - padding
 - margin
 - gap

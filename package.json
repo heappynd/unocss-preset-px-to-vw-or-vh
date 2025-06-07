@@ -1,47 +1,58 @@
 {
   "name": "unocss-preset-px-to-vw-or-vh",
   "version": "1.0.6",
-  "type": "module",
-  "author": "heappynd",
-  "license": "MIT",
+  "packageManager": "pnpm@10.11.0",
   "description": "A unocss preset that converts px to viewport units",
+  "type": "module",
+  "license": "MIT",
+  "homepage": "https://github.com/heappynd/unocss-preset-px-to-vw-or-vh#readme",
+  "bugs": {
+    "url": "https://github.com/heappynd/unocss-preset-px-to-vw-or-vh/issues"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/heappynd/unocss-preset-px-to-vw-or-vh"
+    "url": "git+https://github.com/heappynd/unocss-preset-px-to-vw-or-vh.git"
   },
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
-    }
-  },
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "author": "heappynd <heappynd@163.com>",
   "files": [
     "dist"
   ],
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
-    "build": "rslib build",
-    "dev": "rslib build --watch",
-    "format": "prettier --write .",
-    "lint": "eslint .",
-    "test": "vitest run"
+    "lint": "eslint --cache .",
+    "lint:fix": "pnpm run lint --fix",
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "test": "vitest",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --cache --write .",
+    "release": "bumpp && pnpm publish",
+    "prepublishOnly": "pnpm run build"
   },
   "devDependencies": {
-    "@eslint/js": "^9.12.0",
-    "@rslib/core": "^0.1.3",
-    "@types/node": "^22.8.1",
-    "eslint": "^9.12.0",
-    "globals": "^15.11.0",
-    "prettier": "^3.3.3",
-    "typescript": "^5.6.3",
-    "typescript-eslint": "^8.8.1",
-    "unocss": "^0.65.1",
-    "vitest": "^2.1.8"
+    "@sxzz/eslint-config": "^7.0.1",
+    "@sxzz/prettier-config": "^2.2.1",
+    "@types/node": "^22.15.17",
+    "bumpp": "^10.1.0",
+    "eslint": "^9.26.0",
+    "happy-dom": "^17.4.7",
+    "prettier": "^3.5.3",
+    "tsdown": "^0.11.9",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3",
+    "vitest": "^3.1.3"
   },
   "peerDependencies": {
     "unocss": "^0.65.1 || >=65.4.0"
-  }
+  },
+  "prettier": "@sxzz/prettier-config"
 }

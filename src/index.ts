@@ -1,22 +1,22 @@
-import { definePreset } from 'unocss';
+import { definePreset } from 'unocss'
 
 export interface PxToViewportOptions {
-  designWidth?: number;
-  designHeight?: number;
-  keyToVw?: string[];
-  keyToVh?: string[];
-  keyToBoth?: string[];
+  designWidth?: number
+  designHeight?: number
+  keyToVw?: string[]
+  keyToVh?: string[]
+  keyToBoth?: string[]
   // add or replace key
-  replaceKey?: boolean;
-  unit?: string;
+  replaceKey?: boolean
+  unit?: string
 }
 
 const px2vw = (px: number, designWidth: number) => {
-  return (px * 100.0) / designWidth + 'vw';
-};
+  return (px * 100.0) / designWidth + 'vw'
+}
 const px2vh = (px: number, designHeight: number) => {
-  return (px * 100.0) / designHeight + 'vh';
-};
+  return (px * 100.0) / designHeight + 'vh'
+}
 
 const defaultKeyToVw = [
   'width',
@@ -27,7 +27,7 @@ const defaultKeyToVw = [
   'left',
   'right',
   'column-gap',
-];
+]
 const defaultKeyToVh = [
   'height',
   'padding-top',
@@ -38,29 +38,29 @@ const defaultKeyToVh = [
   'bottom',
   'leading',
   'row-gap',
-];
-const defaultKeyToBoth = ['padding', 'margin', 'gap'];
+]
+const defaultKeyToBoth = ['padding', 'margin', 'gap']
 
 export const presetPxToViewport = definePreset(
   (options: PxToViewportOptions = {}) => {
     // const pxRE = /(-?[.\d]+)px/g;
-    const pxRE = new RegExp(`(-?[.\\d]+)${options.unit || 'px'}`, 'g');
-    const { designWidth = 1920, designHeight = 1080 } = options;
+    const pxRE = new RegExp(`(-?[.\\d]+)${options.unit || 'px'}`, 'g')
+    const { designWidth = 1920, designHeight = 1080 } = options
 
-    let keyToVw = [];
-    let keyToVh = [];
-    let keyToBoth = [];
+    let keyToVw = []
+    let keyToVh = []
+    let keyToBoth = []
 
-    const replaceKey = options.replaceKey || false;
+    const replaceKey = options.replaceKey || false
 
     if (replaceKey) {
-      keyToVw = options.keyToVw || defaultKeyToVw;
-      keyToVh = options.keyToVh || defaultKeyToVh;
-      keyToBoth = options.keyToBoth || defaultKeyToBoth;
+      keyToVw = options.keyToVw || defaultKeyToVw
+      keyToVh = options.keyToVh || defaultKeyToVh
+      keyToBoth = options.keyToBoth || defaultKeyToBoth
     } else {
-      keyToVw = [...defaultKeyToVw, ...(options.keyToVw || [])];
-      keyToVh = [...defaultKeyToVh, ...(options.keyToVh || [])];
-      keyToBoth = [...defaultKeyToBoth, ...(options.keyToBoth || [])];
+      keyToVw = [...defaultKeyToVw, ...(options.keyToVw || [])]
+      keyToVh = [...defaultKeyToVh, ...(options.keyToVh || [])]
+      keyToBoth = [...defaultKeyToBoth, ...(options.keyToBoth || [])]
     }
 
     return {
@@ -69,20 +69,20 @@ export const presetPxToViewport = definePreset(
         // console.log(util);
 
         util.entries.forEach((i) => {
-          const key = i[0];
-          const value = i[1];
-          if (typeof value !== 'string') return;
+          const key = i[0]
+          const value = i[1]
+          if (typeof value !== 'string') return
           if (keyToVw.includes(key)) {
             i[1] = value.replace(
               pxRE,
               (_, p1) => `${px2vw(Number(p1), designWidth)}`,
-            );
+            )
           }
           if (keyToVh.includes(key)) {
             i[1] = value.replace(
               pxRE,
               (_, p1) => `${px2vh(Number(p1), designHeight)}`,
-            );
+            )
           }
           if (keyToBoth.includes(key)) {
             i[1] = value.replace(
@@ -92,10 +92,10 @@ export const presetPxToViewport = definePreset(
                   Number(p1),
                   designWidth,
                 )}`,
-            );
+            )
           }
-        });
+        })
       },
-    };
+    }
   },
-);
+)
