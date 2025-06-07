@@ -1,6 +1,6 @@
 {
   "name": "unocss-preset-px-to-vw-or-vh",
-  "version": "1.0.6",
+  "version": "2.0.0-beta.1",
   "packageManager": "pnpm@10.11.0",
   "description": "A unocss preset that converts px to viewport units",
   "type": "module",
