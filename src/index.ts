@@ -65,21 +65,21 @@ export const presetPxToViewport = definePreset(
 
     return {
       name: 'unocss-preset-px-to-viewport',
-      postprocess: (util) => {
+      postprocess: util => {
         // console.log(util);
 
-        util.entries.forEach((i) => {
+        util.entries.forEach(i => {
           const key = i[0]
           const value = i[1]
           if (typeof value !== 'string') return
           if (keyToVw.includes(key)) {
             i[1] = value.replace(pxRE, (_, p1) =>
-              String(px2vw(Number(p1), designWidth)),
+              String(px2vw(Number(p1), designWidth))
             )
           }
           if (keyToVh.includes(key)) {
             i[1] = value.replace(pxRE, (_, p1) =>
-              String(px2vh(Number(p1), designHeight)),
+              String(px2vh(Number(p1), designHeight))
             )
           }
           if (keyToBoth.includes(key)) {
@@ -88,12 +88,12 @@ export const presetPxToViewport = definePreset(
               (_, p1) =>
                 `${px2vh(Number(p1), designHeight)} ${px2vw(
                   Number(p1),
-                  designWidth,
-                )}`,
+                  designWidth
+                )}`
             )
           }
         })
       },
     }
-  },
+  }
 )
