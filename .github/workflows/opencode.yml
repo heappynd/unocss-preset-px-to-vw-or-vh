@@ -31,3 +31,5 @@ jobs:
           ALIBABA_CODING_PLAN_API_KEY: ${{ secrets.ALIBABA_CODING_PLAN_API_KEY }}
         with:
           model: alibaba-coding-plan-cn/MiniMax-M2.5
+          prompt: |
+            使用中文回答问题，除非问题是用英文提问的。
