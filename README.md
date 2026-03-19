@@ -60,6 +60,22 @@ presetPxToViewport({
 })
 ```
 
+### 视口模式配置
+
+新增 `viewportMode` 选项，支持一键切换到纯 vw 或纯 vh 模式：
+
+```js
+presetPxToViewport({
+  designWidth: 1920,
+  designHeight: 1080,
+
+  // viewportMode: 'both'（默认）- 根据属性分别转换
+  // viewportMode: 'vw' - 所有 px 只转换为 vw
+  // viewportMode: 'vh' - 所有 px 只转换为 vh
+  viewportMode: 'vw',
+})
+```
+
 ## 使用示例
 
 ### 示例 1: 基本使用
@@ -143,6 +159,33 @@ presetPxToViewport({
   <!-- 只有 width 和 height 会被转换 -->
   <!-- 转换为: width: 20.83vw; height: 27.78vh; padding: 20px; margin: 30px; -->
 </div>
+```
+
+### 示例 5: 使用纯视口模式
+
+当只需要一种视口单位时，使用 `viewportMode` 可以简化配置：
+
+```js
+// 移动端场景 - 只需要 vw
+presetPxToViewport({
+  designWidth: 750,
+  viewportMode: 'vw', // 所有 px 都转换为 vw
+})
+```
+
+```html
+<div class="w-200px h-100px p-20px">
+  <!-- 全部转换为 vw -->
+  <!-- 转换为: width: 26.67vw; height: 13.33vw; padding: 2.67vw; -->
+</div>
+```
+
+```js
+// 纯vh场景
+presetPxToViewport({
+  designHeight: 1080,
+  viewportMode: 'vh', // 所有 px 都转换为 vh
+})
 ```
 
 ## 默认转换属性

@@ -6,9 +6,9 @@ export interface PxToViewportOptions {
   keyToVw?: string[]
   keyToVh?: string[]
   keyToBoth?: string[]
-  // add or replace key
   replaceKey?: boolean
   unit?: string
+  viewportMode?: 'vw' | 'vh' | 'both'
 }
 
 const px2vw = (px: number, designWidth: number) => {
@@ -45,7 +45,11 @@ export const presetPxToViewport = definePreset(
   (options: PxToViewportOptions = {}) => {
     // const pxRE = /(-?[.\d]+)px/g;
     const pxRE = new RegExp(`(-?[.\\d]+)${options.unit || 'px'}`, 'g')
-    const { designWidth = 1920, designHeight = 1080 } = options
+    const {
+      designWidth = 1920,
+      designHeight = 1080,
+      viewportMode = 'both',
+    } = options
 
     let keyToVw = []
     let keyToVh = []
@@ -66,12 +70,25 @@ export const presetPxToViewport = definePreset(
     return {
       name: 'unocss-preset-px-to-viewport',
       postprocess: util => {
-        // console.log(util);
-
         util.entries.forEach(i => {
           const key = i[0]
           const value = i[1]
           if (typeof value !== 'string') return
+
+          if (viewportMode === 'vw') {
+            i[1] = value.replace(pxRE, (_, p1) =>
+              String(px2vw(Number(p1), designWidth))
+            )
+            return
+          }
+
+          if (viewportMode === 'vh') {
+            i[1] = value.replace(pxRE, (_, p1) =>
+              String(px2vh(Number(p1), designHeight))
+            )
+            return
+          }
+
           if (keyToVw.includes(key)) {
             i[1] = value.replace(pxRE, (_, p1) =>
               String(px2vw(Number(p1), designWidth))

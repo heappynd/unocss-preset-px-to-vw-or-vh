@@ -109,4 +109,74 @@ describe('presetPxToViewport', () => {
       ['width', '100px'],
     ])
   })
+
+  it('should convert all px to vw when viewportMode is vw', () => {
+    const preset = presetPxToViewport({
+      designWidth: 1920,
+      viewportMode: 'vw',
+    })
+
+    const mockUtil = {
+      entries: [
+        ['width', '16px'],
+        ['height', '32px'],
+        ['padding', '48px'],
+      ],
+    }
+
+    preset.postprocess(mockUtil)
+
+    expect(mockUtil.entries).toEqual([
+      ['width', '0.8333333333333334vw'],
+      ['height', '1.6666666666666667vw'],
+      ['padding', '2.5vw'],
+    ])
+  })
+
+  it('should convert all px to vh when viewportMode is vh', () => {
+    const preset = presetPxToViewport({
+      designHeight: 1080,
+      viewportMode: 'vh',
+    })
+
+    const mockUtil = {
+      entries: [
+        ['width', '16px'],
+        ['height', '32px'],
+        ['padding', '48px'],
+      ],
+    }
+
+    preset.postprocess(mockUtil)
+
+    expect(mockUtil.entries).toEqual([
+      ['width', '1.4814814814814814vh'],
+      ['height', '2.962962962962963vh'],
+      ['padding', '4.444444444444445vh'],
+    ])
+  })
+
+  it('should preserve existing behavior when viewportMode is both', () => {
+    const preset = presetPxToViewport({
+      designWidth: 1920,
+      designHeight: 1080,
+      viewportMode: 'both',
+    })
+
+    const mockUtil = {
+      entries: [
+        ['width', '16px'],
+        ['height', '32px'],
+        ['padding', '48px'],
+      ],
+    }
+
+    preset.postprocess(mockUtil)
+
+    expect(mockUtil.entries).toEqual([
+      ['width', '0.8333333333333334vw'],
+      ['height', '2.962962962962963vh'],
+      ['padding', '4.444444444444445vh 2.5vw'],
+    ])
+  })
 })
